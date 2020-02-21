@@ -97,97 +97,76 @@ Cnn2 architecture:
 CNN(
   (encoder): Cnn2(
     (conv1): Conv1d(9, 64, kernel_size=(5,), stride=(1,))
+    (relu1): Relu()
     (conv2): Conv1d(64, 64, kernel_size=(5,), stride=(1,))
-    (drop): Dropout(p=0.6, inplace=False)
-    (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-    (lin1): Linear(in_features=3840, out_features=100, bias=True)
-    (lin2): Linear(in_features=100, out_features=6, bias=True)
+    (relu2): Relu()
+    (drop):  Dropout(p=0.6, inplace=False)
+    (pool):  MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (lin3):  Linear(in_features=3840, out_features=100, bias=True)
+    (relu3): Relu()
+    (lin4):  Linear(in_features=100, out_features=6, bias=True)
+    (relu4): Relu()
   )
 )
 ```
 
 ## Results
 
-Pre-trained models for `HAR_Cnn1` and `HAR_Cnn2` can be found in the results folder. 
+Pre-trained models for `HAR_Cnn1_StdFalse`, `HAR_Cnn1_StdTrue`, `HAR_Cnn2_StdFalse` and `HAR_Cnn2_StdTrue` 
+can be found in the results folder. These can be loaded and evaluated with the command: 
 
-The following results were achieved on the `fashionMNIST` dataset:
-- Epochs: 15
+`python main.py -n HAR_Cnn2_StdTrue --is-eval-only`
+
+The best results were achieved with the `HAR_Cnn2_StdTrue` run:
+
+- Epochs: 20
 - learning rate: 5e-4
-- batch_size: 64
+- batch_size: 32
+- is_standardized: True
 
 ```
 ***************************************************
 *            Evaluating Train Accuracy            *
 ***************************************************
+Train accuracy of the network on the 7352 train sequences: 98.86 %
+Accuracy of class 0: walking : 100.00 %
+Accuracy of class 1: walking upstairs : 100.00 %
+Accuracy of class 2: walking downstairs : 100.00 %
+Accuracy of class 3: sitting : 98.91 %
+Accuracy of class 4: standing : 94.91 %
+Accuracy of class 5: laying : 100.00 %
 
-Train accuracy of the network on the 60000 test images: 98 %
 
-Accuracy of T-shirt/top : 96 %
-Accuracy of Trouser : 100 %
-Accuracy of Pullover : 95 %
-Accuracy of Dress : 98 %
-Accuracy of  Coat : 98 %
-Accuracy of Sandal : 99 %
-Accuracy of Shirt : 95 %
-Accuracy of Sneaker : 99 %
-Accuracy of   Bag : 99 %
-Accuracy of Ankle boot : 96 %
+Confusion matrix:
+--------------------------------
+      0     1    2     3     4     5
+0  1226     0    0     0     0     0
+1     0  1073    0     0     0     0
+2     0     0  986     0     0     0
+3     0     0    0  1272    14     0
+4     0     0    0    70  1304     0
+5     0     0    0     0     0  1407
 
-***************************************************
-*            Evaluating Test Accuracy             *
-***************************************************
-
-Test accuracy of the network on the 10000 test images: 91 %
-
-Accuracy of T-shirt/top : 81 %
-Accuracy of Trouser : 100 %
-Accuracy of Pullover : 81 %
-Accuracy of Dress : 95 %
-Accuracy of  Coat : 88 %
-Accuracy of Sandal : 97 %
-Accuracy of Shirt : 78 %
-Accuracy of Sneaker : 97 %
-Accuracy of   Bag : 96 %
-Accuracy of Ankle boot : 92 %
-```
-
-And for the `MNIST` dataset:
-- Epochs: 10
-- learning rate: 5e-4
-- batch_size: 64
-
-```
-***************************************************
-*            Evaluating Train Accuracy            *
-***************************************************
-
-Train accuracy of the network on the 60000 test images: 99 %
-
-Accuracy of 0 - zero : 100 %
-Accuracy of 1 - one : 100 %
-Accuracy of 2 - two : 99 %
-Accuracy of 3 - three : 99 %
-Accuracy of 4 - four : 99 %
-Accuracy of 5 - five : 99 %
-Accuracy of 6 - six : 100 %
-Accuracy of 7 - seven : 99 %
-Accuracy of 8 - eight : 99 %
-Accuracy of 9 - nine : 99 %
 
 ***************************************************
 *            Evaluating Test Accuracy             *
 ***************************************************
+Test accuracy of the network on the 2947 test sequences: 92.57 %
+Accuracy of class 0: walking : 98.39 %
+Accuracy of class 1: walking upstairs : 95.54 %
+Accuracy of class 2: walking downstairs : 98.81 %
+Accuracy of class 3: sitting : 83.30 %
+Accuracy of class 4: standing : 80.64 %
+Accuracy of class 5: laying : 100.00 %
 
-Test accuracy of the network on the 10000 test images: 99 %
 
-Accuracy of 0 - zero : 100 %
-Accuracy of 1 - one : 100 %
-Accuracy of 2 - two : 99 %
-Accuracy of 3 - three : 98 %
-Accuracy of 4 - four : 98 %
-Accuracy of 5 - five : 100 %
-Accuracy of 6 - six : 100 %
-Accuracy of 7 - seven : 99 %
-Accuracy of 8 - eight : 99 %
-Accuracy of 9 - nine : 98 %
+Confusion matrix:
+--------------------------------
+     0    1    2    3    4    5
+0  488    0    8    0    0    0
+1    3  450   18    0    0    0
+2    1    4  415    0    0    0
+3    1    1    0  409   74    6
+4    0    0    0  103  429    0
+5    0    0    0    0    0  537
 ```
