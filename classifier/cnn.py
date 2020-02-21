@@ -20,9 +20,16 @@ def init_specific_model(model_type, data_size, num_classes):
 class CNN(nn.Module):
     def __init__(self, encoder, data_size, num_classes):
         """
-        :param encoder:
-        :param img_size:
-        :param num_classes:
+        CNN class that can be used with various encoders
+
+        Parameters
+        ----------
+        encoder : class
+            A CNN model
+        data_size : shape (dim, datapoint)
+            Shape of the data
+        num_classes : int
+            The number of classes of data
         """
         super(CNN, self).__init__()
 
@@ -38,7 +45,7 @@ class CNN(nn.Module):
         Parameters
         ----------
         x : torch.Tensor
-            Batch of data. Shape (batch_size, n_chan, height, width)
+            Batch of data. Shape (batch_size, n_chan, dim, datapoints)
         """
         outputs = self.encoder(x)
         return outputs

@@ -1,5 +1,4 @@
 import os
-import logging
 
 import torch
 from torch.utils.data import DataLoader, Dataset
@@ -76,11 +75,15 @@ class HumanActivityRecognition(Dataset):
                  is_train=True,
                  is_standardized=False):
         """
-        Args:
-            root (string): Path to the csv file with annotations.
+        Parameters
+        ----------
 
-            transform (callable, optional): Optional transform to be applied
-                on a sample.
+        root : string
+            Path to the csv file with annotations.
+        is_train : bool
+            Chooses train or test set
+        is_standardized : bool
+            Chooses whether data is standardized
         """
         if is_train:
             image_set = 'train'
@@ -118,7 +121,7 @@ class HumanActivityRecognition(Dataset):
         return input, target
 
     # load a dataset group, such as train or test
-    # borrowed mthods from the tutorial
+    # borrowed methods from the tutorial
     def load_dataset_group(self, group, prefix=''):
         filepath = prefix + group + '/Inertial Signals/'
         # load all 9 files as a single array
@@ -151,16 +154,8 @@ class HumanActivityRecognition(Dataset):
         If X_train is only passed, returns standardized X_train
 
         If X_train and X_test are passed, returns standardized X_test
-
-        Parameters
-        ----------
-        X_train
-        X_test
-
-        Returns
         -------
         """
-
         # raise Exception("need to standardize the test set with the mean and stddev of the train set!!!!!!!")
         # remove overlap
         cut = int(X_train.shape[1] / 2)

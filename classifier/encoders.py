@@ -2,7 +2,6 @@
 import torch
 from torch import nn
 
-# ALL encoders should be called Enccoder<Model>
 def get_encoder(model_type):
     model_type = model_type.lower().capitalize()
     return eval("{}".format(model_type))
