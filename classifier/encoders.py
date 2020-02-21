@@ -22,8 +22,8 @@ class Cnn1(nn.Module):
         self.pool = nn.MaxPool1d(kernel_size=2,stride=2)
 
         # Fully connected layers
-        self.lin1 = nn.Linear(3968, 100)
-        self.lin2 = nn.Linear(100, self.n_classes)
+        self.lin3 = nn.Linear(3968, 100)
+        self.lin4 = nn.Linear(100, self.n_classes)
 
     def forward(self, x):
         batch_size = x.size(0)
@@ -35,8 +35,8 @@ class Cnn1(nn.Module):
         a = self.pool(a)
         #Fully connected layers
         a = a.view((batch_size, -1))
-        a = torch.relu(self.lin1(a))
-        a = torch.relu(self.lin2(a))
+        a = torch.relu(self.lin3(a))
+        a = torch.relu(self.lin4(a))
 
         return a
 
@@ -55,8 +55,8 @@ class Cnn2(nn.Module):
         self.pool = nn.MaxPool1d(kernel_size=2, stride=2)
 
         # Fully connected layers
-        self.lin1 = nn.Linear(3840, 100)
-        self.lin2 = nn.Linear(100, self.n_classes)
+        self.lin3 = nn.Linear(3840, 100)
+        self.lin4 = nn.Linear(100, self.n_classes)
 
     def forward(self, x):
         batch_size = x.size(0)
@@ -68,8 +68,8 @@ class Cnn2(nn.Module):
         a = self.pool(a)
         #Fully connected layers
         a = a.view((batch_size, -1))
-        a = torch.relu(self.lin1(a))
-        a = torch.relu(self.lin2(a))
+        a = torch.relu(self.lin3(a))
+        a = torch.relu(self.lin4(a))
 
         return a
 
